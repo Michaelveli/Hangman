@@ -7,7 +7,7 @@
 #include <ctype.h>
 using namespace std;
 
-string word;
+string word; // the word to guess
 
 
 
@@ -31,10 +31,10 @@ void getword() {
 
 void hangman() {
 	int attempts = 4;
-	char letter_from_word;
-	string letters;
+	char letter_from_word; // the letter the user guesses
+	string word_incomplete; 
 	for (int i = 0; i < word.size(); i++) {
-	
+		cout << word_incomplete << endl;
 		if (attempts > 0) {
 			cout << "You have " << attempts << " attempts left." << endl;
 		}
@@ -49,6 +49,7 @@ void hangman() {
 
 		if (letter_from_word == word[i]) {
 			cout << "Correct!" << endl;
+			word += letter_from_word;
 			cout << word[i] << endl;
 
 			continue;
