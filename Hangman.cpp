@@ -32,48 +32,54 @@ void getword() {
 void hangman() {
 	int attempts = 4;
 	char letter_from_word; // the letter the user guesses
-	string word_incomplete; 
-	for (int i = 0; i < word.size(); i++) {
-		cout << word_incomplete << endl;
-		if (attempts > 0) {
+	string word_incomplete; // the word being guessed
+	
+		for (int i = 0; i < word.size(); i++) {
+			if (word_incomplete == word) {
+				cout << "Congratulations! You have correctly guessed the word! " << endl;
+				break;
+			}
+			
+			if (attempts < 1) {
+				cout << "You have ran out of attempts. ";
+				break;
+			}
+
 			cout << "You have " << attempts << " attempts left." << endl;
-		}
-		if (attempts < 1) {
-			cout << "You have ran out of attempts. ";
-			break;
-		}
-		cout << "Enter a letter" << endl;
-		cin >> letter_from_word;
-		toupper(letter_from_word);
-		cin.ignore();
+			cout << "|" << word_incomplete << "|" << endl;
+			cout << "Enter a letter" << endl;
+			cin >> letter_from_word;
+			toupper(letter_from_word);
+			cin.ignore();
 
-		if (letter_from_word == word[i]) {
-			cout << "Correct!" << endl;
-			word += letter_from_word;
-			cout << word[i] << endl;
+			if (letter_from_word == word[i]) {
+				cout << "Correct!" << endl;
+				word_incomplete = word_incomplete + letter_from_word;
+				cout << word_incomplete << endl;
+				continue;
+			}
 
-			continue;
+			if (letter_from_word != word[i]) {
+				cout << "Incorrect! ";
+				attempts--;
+				i--;
+				continue;
+			}
+
 		}
-
-		if (letter_from_word != word[i]) {
-			cout << "Incorrect! ";
-			attempts --;
-			i--;
-			continue;
-		}
-
-	}
+	
 }
+
 
 
 
 int main()
 {
 	char choice;
-	
-		// for all letters in word
-		// toupper(letter_from_word);
-		// save letter_from_word back into string word
+
+	// for all letters in word
+	// toupper(letter_from_word);
+	// save letter_from_word back into string word
 	getword();
 	hangman();
 
@@ -86,11 +92,8 @@ int main()
 	}
 	if (choice == 'n') {
 		cout << "Goodbye! Thanks for playing. ";
-	 
+
 	}
 }
-
-    
-   
 
 
