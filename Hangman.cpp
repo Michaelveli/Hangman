@@ -17,8 +17,8 @@ void test() {
 		tracker.push_back(false);
 	}
 }
-// this
-void check_correctness(char guess, vector<char> guess, vector<bool> tracker) {
+
+void check_correctness(char letter_guess, vector<char> guess, vector<bool> tracker) {
 	for (int i = 0; i < guess.size(); i++) {
 		if (letter_guess == guess[i]) {
 			tracker[i] = true;
@@ -31,9 +31,9 @@ void check_correctness(char guess, vector<char> guess, vector<bool> tracker) {
 		}
 	}
 }
-// and finally this
+
 void display() {
-	for (int i = 0; i < guess.size(); i++) {
+	for () {
 		if (tracker[i] == true) {
 			cout << word[i] << endl;//show letter;
 		}
