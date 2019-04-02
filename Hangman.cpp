@@ -1,99 +1,146 @@
-// Hangman.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include "pch.h"
 #include <iostream>
 #include <string>
 #include <ctype.h>
+#include <vector>
 using namespace std;
 
-string word; // the word to guess
+//1. fix vectors and add them to program to display guessed characters
+//2. add option to retry upon exit
+//3. fix to upper on line 61
 
+// fix this 
+void test() {
+	vector<bool> tracker;
+	vector<char> guess;		// this could also just be a single string
+	for (int i = 0; i < guess.size(); i++) {
+		tracker.push_back(false);
+	}
+}
+// this
+void check_correctness(char guess, vector<char> guess, vector<bool> tracker) {
+	for (int i = 0; i < guess.size(); i++) {
+		if (letter_guess == guess[i]) {
+			tracker[i] = true;
+			// word_to_guess[0] = J
+			// word_to_guess[1] = E
+			// word_to_guess[2] = E
+			// word_to_guess[3] = P
 
+			cout << guess[i] << endl;
+		}
+	}
+}
+// and finally this
+void display() {
+	for (int i = 0; i < guess.size(); i++) {
+		if (tracker[i] == true) {
+			cout << word[i] << endl;//show letter;
+		}
+		else // show "_"
+	}
+}
 
-void getword() {
-	cout << "Hangman" << endl;
+int main() {
+	int tries = 4; // number of wrong attempts
+	int right = 0;   // counter for correct guesses
+	bool found = false;
+	char guess;
+	string word; // the word being guessed
+	char guessed[4]; // This string gets all the correct letters you have already typed
+	int size = 1;
+	int validletter = false;
+	int aux = 0;
+	string word_incomplete;
+	bool tracker = false;
 	cout << "Input word to start game: ";
 	getline(cin, word);
-	//toupper(word); // fix this
+	string word_upper;
 
 	for (char c : word) {
+		word_upper += toupper(c);
+	}
+
+	for (char c : word) {                        //checks space
 		if (isspace(c)) {
 			cout << "Word cannot contain a space. Enter another word." << endl;
 			continue;
 
 		}
 	}
-	if (word.empty()) {
+	if (word.empty()) {                                 // checks empty
 		cout << "The word cannot be blank! " << endl;
 	}
-}
+	int length = word.length();
+	cout << "The word length is " << length << endl;
 
-void hangman() {
-	int attempts = 4;
-	char letter_from_word; // the letter the user guesses
-	string word_incomplete; // the word being guessed
-	
-		for (int i = 0; i < word.size(); i++) {
-			if (word_incomplete == word) {
-				cout << "Congratulations! You have correctly guessed the word! " << endl;
-				break;
-			}
-			
-			if (attempts < 1) {
-				cout << "You have ran out of attempts. ";
-				break;
-			}
 
-			cout << "You have " << attempts << " attempts left." << endl;
-			cout << "|" << word_incomplete << "|" << endl;
-			cout << "Enter a letter" << endl;
-			cin >> letter_from_word;
-			toupper(letter_from_word);
-			cin.ignore();
+	cout << "Try to guess the word, you have FOUR guesses!" << endl;
 
-			if (letter_from_word == word[i]) {
-				cout << "Correct!" << endl;
-				word_incomplete = word_incomplete + letter_from_word;
-				cout << word_incomplete << endl;
-				continue;
-			}
+	while (tries <= 4) {
+		validletter = false;
 
-			if (letter_from_word != word[i]) {
-				cout << "Incorrect! ";
-				attempts--;
-				i--;
-				continue;
-			}
+		if (aux == 0)
+		{
+			cout << "Enter a 1st letter: ";
+			cin >> guess;
+			guessed[0] = guess;
+			cout << "You guessed: " << guess << endl;
 
 		}
-	
+		else {
+
+			while (validletter == false) // You can only get out of this loop by typing a valid letter. 
+			{
+				cout << "\n\nEnter a letter: ";
+				cin >> guess;
+				cout << "You guessed: " << guess << endl;
+				validletter = true;
+			}
+		}
+
+		aux++;
+
+		for (int i = 0; i < length; i++) {
+			found = false;
+
+			if (word[i] == guess) {        // Letter is in word
+
+				cout << "This letter is in the word!" << endl;
+				cout << word[i] << "\t";
+				i = length;
+				found = true;
+				right++;
+				guessed[size] = guess;
+				size++;
+
+
+			}
+
+			else if (i == length - 1 && found == false) {
+
+				cout << "This letter is not in the word. " << endl;
+				tries--;
+				cout << "__\t";
+			}
+		}
+
+		if (right == length) {     // winning condition
+
+			cout << "You win!" << endl;
+			cout << "The word was " << word << endl;
+			break;
+		}
+
+		if (tries == 0 && right != length) {          // losing condition
+
+			cout << "You lost!" << endl;
+			cout << "The word was " << word << endl;
+			break;
+		}
+	} // while loop close
+
+
+	return 0;
 }
-
-
-
-
-int main()
-{
-	char choice;
-
-	// for all letters in word
-	// toupper(letter_from_word);
-	// save letter_from_word back into string word
-	getword();
-	hangman();
-
-	cout << "Game over. Play again? (y/n)" << endl;
-	cin >> choice;
-	cin.ignore();
-	if (choice == 'y') {
-		getword();
-		hangman();
-	}
-	if (choice == 'n') {
-		cout << "Goodbye! Thanks for playing. ";
-
-	}
-}
-
 
