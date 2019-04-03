@@ -15,7 +15,7 @@ char guessed[4]; // This string gets all the correct letters you have already ty
 int validletter = false;
 int aux = 0;
 bool tracker = false;
-string word_upper;
+
 
 
 void input() {
@@ -25,7 +25,9 @@ void input() {
 		v_word = true;
 		cout << "Input word to start game: ";
 		getline(cin, word);
-		
+		//for (char c : word) {                       
+     // word = toupper(c);
+	//}
 		for (char c : word) {
 
 			if (isspace(c)) {
@@ -35,17 +37,16 @@ void input() {
 
 			}
 		}
-		for (char c : word) {
 
-			if (word.empty()) {
+			if (word == "") {
 				cout << "The word cannot be blank! " << endl;
 				v_word = false;
-				break;
+				continue;
 			}
 
 
-
-		}
+		
+		
 
 	}
 }
