@@ -95,10 +95,20 @@ int main() {
 
 			while (validletter == false) // You can only get out of this loop by typing a valid letter. 
 			{
+				cout << "You have " << tries << " attempts left" << endl;
 				cout << "\n\nEnter a letter: ";
 				cin >> guess;
 				cout << "You guessed: " << guess << endl;
 				validletter = true;
+				for (int i = 0; i < size; i++)
+				{
+					if (guess == guessed[i])
+					{
+						cout << "\nYou already said that letter. Try again\n";
+						validletter = false;
+						i = size;
+					}
+				}
 			}
 		}
 
