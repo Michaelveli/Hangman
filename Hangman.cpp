@@ -20,28 +20,47 @@ string word_upper;
 
 void input() {
 
+	bool v_word = false;
+	while (!v_word) {
+		v_word = true;
+		cout << "Input word to start game: ";
+		getline(cin, word);
+		
+		for (char c : word) {
+
+			if (isspace(c)) {
+				cout << "Word cannot contain a space. Enter another word." << endl;
+				v_word = false;
+				break;
+
+			}
+		}
+		for (char c : word) {
+
+			if (word.empty()) {
+				cout << "The word cannot be blank! " << endl;
+				v_word = false;
+				break;
+			}
+
+
+
+		}
+
+	}
 }
 
 void hangman() {
-	
+
 	int tries = 4; // number of wrong attempts
 	int right = 0;   // counter for correct guesses
 	int size = 1;
-	cout << "Input word to start game: ";
-	
-	getline(cin, word);
+
+
+	input();
 	int length = word.length();
 
-	for (char c : word) {                        //checks space
-		if (isspace(c)) {
-			cout << "Word cannot contain a space. Enter another word." << endl;
-			continue;
-
-		}
-	}
-	if (word.empty()) {                                 // checks empty
-		cout << "The word cannot be blank! " << endl;
-	}
+	
 
 	cout << "The word length is " << length << endl;
 
@@ -152,7 +171,7 @@ void display(vector<char> guess, string tracker) {
 int main() {
 
 
-	
+
 	//for (char c : word) {                       
 	//	word_upper += toupper(c);
 	//	}
@@ -170,9 +189,8 @@ int main() {
 
 	}
 
-	
+
 
 
 	return 0;
 }
-
