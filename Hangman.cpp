@@ -5,11 +5,15 @@
 #include <vector>
 using namespace std;
 
-//1. fix vectors and add them to program to display guessed characters
-//2. add option to retry upon exit
-//3. fix to upper on line 61
+bool found = false;
+char guess;
+string word; // the word being guessed
+char guessed[4]; // This string gets all the correct letters you have already typed
+int validletter = false;
+int aux = 0;
+bool tracker = false;
+string word_upper;
 
-// fix this 
 void test() {
 	vector<bool> tracker;
 	vector<char> guess;		// this could also just be a single string
@@ -33,33 +37,28 @@ void check_correctness(char letter_guess, vector<char> guess, vector<bool> track
 }
 
 void display() {
-	for () {
+	for (int i = 0; i < guess.size(); i++) {
 		if (tracker[i] == true) {
 			cout << word[i] << endl;//show letter;
 		}
-		else // show "_"
+		else {
+			cout << "_" << endl; // show "_"
+		}
 	}
 }
 
 int main() {
+
 	int tries = 4; // number of wrong attempts
 	int right = 0;   // counter for correct guesses
-	bool found = false;
-	char guess;
-	string word; // the word being guessed
-	char guessed[4]; // This string gets all the correct letters you have already typed
+	int length = word.length();
 	int size = 1;
-	int validletter = false;
-	int aux = 0;
-	string word_incomplete;
-	bool tracker = false;
 	cout << "Input word to start game: ";
 	getline(cin, word);
-	string word_upper;
 
-	for (char c : word) {
-		word_upper += toupper(c);
-	}
+	//for (char c : word) {                       
+	//	word_upper += toupper(c);
+	//	}
 
 	for (char c : word) {                        //checks space
 		if (isspace(c)) {
@@ -71,7 +70,7 @@ int main() {
 	if (word.empty()) {                                 // checks empty
 		cout << "The word cannot be blank! " << endl;
 	}
-	int length = word.length();
+	
 	cout << "The word length is " << length << endl;
 
 
@@ -113,7 +112,7 @@ int main() {
 				right++;
 				guessed[size] = guess;
 				size++;
-
+				
 
 			}
 
