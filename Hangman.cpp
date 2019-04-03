@@ -5,6 +5,10 @@
 #include <vector>
 using namespace std;
 
+// TO DO
+// add option to repeat program at end of main
+// convert word to uppercase on line 60
+// get vectors to display correctly guessed characters
 bool found = false;
 char guess;
 string word; // the word being guessed
@@ -51,10 +55,10 @@ int main() {
 
 	int tries = 4; // number of wrong attempts
 	int right = 0;   // counter for correct guesses
-	int length = word.length();
 	int size = 1;
 	cout << "Input word to start game: ";
 	getline(cin, word);
+	int length = word.length();
 
 	//for (char c : word) {                       
 	//	word_upper += toupper(c);
@@ -106,7 +110,10 @@ int main() {
 			if (word[i] == guess) {        // Letter is in word
 
 				cout << "This letter is in the word!" << endl;
+
+
 				cout << word[i] << "\t";
+	
 				i = length;
 				found = true;
 				right++;
