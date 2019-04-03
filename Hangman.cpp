@@ -6,7 +6,6 @@
 using namespace std;
 
 // TO DO
-// add option to repeat program at end of main
 // convert word to uppercase on line 60
 // get vectors to display correctly guessed characters
 bool found = false;
@@ -18,6 +17,105 @@ int aux = 0;
 bool tracker = false;
 string word_upper;
 
+
+void input() {
+
+}
+
+void hangman() {
+	
+	int tries = 4; // number of wrong attempts
+	int right = 0;   // counter for correct guesses
+	int size = 1;
+	cout << "Input word to start game: ";
+	
+	getline(cin, word);
+	int length = word.length();
+
+	for (char c : word) {                        //checks space
+		if (isspace(c)) {
+			cout << "Word cannot contain a space. Enter another word." << endl;
+			continue;
+
+		}
+	}
+	if (word.empty()) {                                 // checks empty
+		cout << "The word cannot be blank! " << endl;
+	}
+
+	cout << "The word length is " << length << endl;
+
+
+	cout << "Try to guess the word, you have FOUR guesses!" << endl;
+
+	while (tries <= 4) {
+		validletter = false;
+
+		if (aux == 0)
+		{
+			cout << "Enter a 1st letter: ";
+			cin >> guess;
+			guessed[0] = guess;
+			cout << "You guessed: " << guess << endl;
+
+		}
+		else {
+
+			while (validletter == false) // You can only get out of this loop by typing a valid letter. 
+			{
+				cout << "You have " << tries << " attempts left" << endl;
+				cout << "\n\nEnter a letter: ";
+				cin >> guess;
+				cout << "You guessed: " << guess << endl;
+				validletter = true;
+			}
+		}
+
+
+		aux++;
+
+		for (int i = 0; i < length; i++) {
+			found = false;
+
+			if (word[i] == guess) {        // Letter is in word
+
+				cout << "This letter is in the word!" << endl;
+
+
+				cout << word[i] << "\t";
+
+				i = length;
+				found = true;
+				right++;
+				guessed[size] = guess;
+				size++;
+
+
+			}
+
+			else if (i == length - 1 && found == false) {
+
+				cout << "This letter is not in the word. " << endl;
+				tries--;
+				cout << "__\t";
+			}
+		}
+
+		if (right == length) {     // winning condition
+
+			cout << "You win!" << endl;
+			cout << "The word was " << word << endl;
+			break;
+		}
+
+		if (tries == 0 && right != length) {          // losing condition
+
+			cout << "You lost!" << endl;
+			cout << "The word was " << word << endl;
+			break;
+		}
+	} // while loop close
+}
 void test() {
 	vector<bool> tracker;
 	vector<char> guess;		// this could also just be a single string
@@ -53,108 +151,26 @@ void display(vector<char> guess, string tracker) {
 
 int main() {
 
-	int tries = 4; // number of wrong attempts
-	int right = 0;   // counter for correct guesses
-	int size = 1;
-	cout << "Input word to start game: ";
-	getline(cin, word);
-	int length = word.length();
 
+	
 	//for (char c : word) {                       
 	//	word_upper += toupper(c);
 	//	}
+	hangman();
 
-	for (char c : word) {                        //checks space
-		if (isspace(c)) {
-			cout << "Word cannot contain a space. Enter another word." << endl;
-			continue;
+	char choice;
 
-		}
+	cout << "Play again ? (y/n) " << endl;
+	cin >> choice;
+	if (choice == 'y') {
+		hangman();
 	}
-	if (word.empty()) {                                 // checks empty
-		cout << "The word cannot be blank! " << endl;
+	if (choice == 'n') {
+		cout << "Goodbye! Thanks for playing. ";
+
 	}
+
 	
-	cout << "The word length is " << length << endl;
-
-
-	cout << "Try to guess the word, you have FOUR guesses!" << endl;
-
-	while (tries <= 4) {
-		validletter = false;
-
-		if (aux == 0)
-		{
-			cout << "Enter a 1st letter: ";
-			cin >> guess;
-			guessed[0] = guess;
-			cout << "You guessed: " << guess << endl;
-
-		}
-		else {
-
-			while (validletter == false) // You can only get out of this loop by typing a valid letter. 
-			{
-				cout << "You have " << tries << " attempts left" << endl;
-				cout << "\n\nEnter a letter: ";
-				cin >> guess;
-				cout << "You guessed: " << guess << endl;
-				validletter = true;
-				for (int i = 0; i < size; i++)
-				{
-					if (guess == guessed[i])
-					{
-						cout << "\nYou already said that letter. Try again\n";
-						validletter = false;
-						i = size;
-					}
-				}
-			}
-		}
-
-		aux++;
-
-		for (int i = 0; i < length; i++) {
-			found = false;
-
-			if (word[i] == guess) {        // Letter is in word
-
-				cout << "This letter is in the word!" << endl;
-
-
-				cout << word[i] << "\t";
-	
-				i = length;
-				found = true;
-				right++;
-				guessed[size] = guess;
-				size++;
-				
-
-			}
-
-			else if (i == length - 1 && found == false) {
-
-				cout << "This letter is not in the word. " << endl;
-				tries--;
-				cout << "__\t";
-			}
-		}
-
-		if (right == length) {     // winning condition
-
-			cout << "You win!" << endl;
-			cout << "The word was " << word << endl;
-			break;
-		}
-
-		if (tries == 0 && right != length) {          // losing condition
-
-			cout << "You lost!" << endl;
-			cout << "The word was " << word << endl;
-			break;
-		}
-	} // while loop close
 
 
 	return 0;
