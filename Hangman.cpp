@@ -3,11 +3,13 @@
 #include <string>
 #include <ctype.h>
 #include <vector>
+
+
 using namespace std;
 
 // TO DO
-// convert word to uppercase on line 60
-// get vectors to display correctly guessed characters
+//1. get vectors to display correctly guessed characters (written but not initilized)
+
 bool found = false;
 char guess;
 string word; // the word being guessed
@@ -16,7 +18,12 @@ int validletter = false;
 int aux = 0;
 bool tracker = false;
 
+void convert(string& word) {
+	for (int i = 0; i < word.length(); i++) {
+		word[i] = toupper(word[i]);
+	}
 
+}
 
 void input() {
 
@@ -25,7 +32,10 @@ void input() {
 		v_word = true;
 		cout << "Input word to start game: ";
 		getline(cin, word);
-		//for (char c : word) {                       
+		convert(word);
+		
+		//for (char c : word) {
+                       
      // word = toupper(c);
 	//}
 		for (char c : word) {
@@ -76,6 +86,7 @@ void hangman() {
 			cout << "Enter a 1st letter: ";
 			cin >> guess;
 			guessed[0] = guess;
+			guess = toupper(guess);
 			cout << "You guessed: " << guess << endl;
 
 		}
@@ -86,6 +97,7 @@ void hangman() {
 				cout << "You have " << tries << " attempts left" << endl;
 				cout << "\n\nEnter a letter: ";
 				cin >> guess;
+				guess = toupper(guess);
 				cout << "You guessed: " << guess << endl;
 				validletter = true;
 			}
