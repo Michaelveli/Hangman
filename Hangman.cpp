@@ -36,7 +36,7 @@ void check_correctness(char letter_guess, vector<char> guess, vector<bool> track
 	}
 }
 
-void display(vector<char> guess, vector<bool> tracker) {
+void display(vector<char> guess, string tracker) {
 	for (int i = 0; i < guess.size(); i++) {
 		if (tracker[i] == true) {
 			cout << word[i] << endl;//show letter;
